@@ -23,7 +23,7 @@ public class Main {
 
 class ConfigurationParameters {
     // Here is the singleton instance
-    private static ConfigurationParameters instance;
+    private static final ConfigurationParameters instance = new ConfigurationParameters(loadParameters());
 
     // Here is the dictionary that will hold the parameters
     private final Map<String, String> parameters;
@@ -31,21 +31,18 @@ class ConfigurationParameters {
 
     // Constructor. Parameters are loaded.
     private ConfigurationParameters(Map<String, String> parameters) {
-        this.parameters = parameters;
+        // Copy to ensure that will not change.
+        this.parameters = Map.copyOf(parameters);
     }
 
     // Method to get the singleton instance
     // This is the unique (public) way to get an instance of this class.
     public static ConfigurationParameters getInstance() {
-        if(instance == null) {
-
-            instance = new ConfigurationParameters(loadParameters());
-        }
         return instance;
     }
 
     // Method to load parameters from a file (simulated here)
-    private static HashMap<String, String> loadParameters() {
+    private static Map<String, String> loadParameters() {
         HashMap<String, String> params = new HashMap<>();
 
         // Simulate loading parameters from a file
