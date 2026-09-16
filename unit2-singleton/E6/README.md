@@ -22,6 +22,8 @@ Manejar la propagación de estados globales de la interfaz mediante un punto cen
 
 ## Resolución
 
+`ThemeManager` conserva el tema visual en un Singleton con constructor privado e instancia `static final`, de modo que todos los consumidores consultan el mismo estado. El enum `Theme` define las opciones `LIGHT` y `DARK`, y el tema inicial es `LIGHT`. Los métodos `setTheme()` y `getActualTheme()` están sincronizados para proteger la modificación y lectura de la preferencia compartida. El ejemplo cambia a oscuro y luego a claro, imprime ambos valores y comprueba que una segunda referencia apunta al mismo gestor.
+
 ```{bash}
 java e6/ThemeManagerExample.java
     Actual theme?: DARK

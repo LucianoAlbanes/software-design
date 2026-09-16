@@ -22,6 +22,8 @@ Refactorizar un diseño rígido basado en Singleton acoplado hacia un patrón do
 
 ## Resolución
 
+La solución combina Singleton e inyección de dependencias: `PaymentGateway` mantiene una instancia `static final` con constructor privado e implementa la interfaz `PaymentProcessor`. `PaymentService` recibe un `PaymentProcessor` por constructor y delega el pago mediante `processPayment()`, sin obtener la instancia global dentro de su lógica. En `main()` se obtiene el Singleton y se lo inyecta al servicio, que simula el procesamiento del pago por consola. Al depender de una interfaz, el servicio también puede recibir una implementación de prueba sin modificar su código.
+
 ```{bash}
 java e8/DependencyInjectionExample 
     Processing payment: $420.69

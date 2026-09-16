@@ -22,6 +22,8 @@ Implementar un Singleton que coordine una estructura de datos tipo cola bajo un 
 
 ## Resolución
 
+`Printer` administra una única cola de impresión mediante un Singleton con constructor privado e instancia `static final`. La cola usa `Queue<PrintingDocument>` con una `LinkedList`, por lo que los documentos se procesan en el orden en que fueron encolados. `addDocumentToQueue()` agrega trabajos y `printAll()` los extrae con `poll()` hasta vaciar la cola, simulando cada impresión por consola. Ambos métodos están sincronizados para proteger la estructura ante accesos concurrentes. Cada `PrintingDocument` conserva contenido y autor en campos `final`, y el ejemplo encola tres documentos y los imprime en secuencia.
+
 ```{bash}
 java e7/PrinterQueueExample.java
     Printed: 

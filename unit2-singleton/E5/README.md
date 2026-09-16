@@ -22,6 +22,8 @@ Controlar el acceso seguro a recursos físicos exclusivos de un sistema mediante
 
 ## Resolución
 
+`Controller` concentra el acceso al dispositivo simulado en una instancia `static final`, obtenida mediante `getInstance()` y con constructor privado. `sendCommand()` usa `synchronized` para ejecutar un comando por vez, comprueba la disponibilidad y marca el recurso como ocupado antes de llamar a `executeCommand()`. El bloque `finally` restablece el estado disponible incluso si la ejecución falla. `isFree()` consulta ese estado de forma sincronizada. El ejemplo envía un comando, simula su ejecución mediante un mensaje de consola y verifica que el recurso queda libre al terminar.
+
 ```{bash}
 java e5/HardwareControllerExample.java
     Executed: bla

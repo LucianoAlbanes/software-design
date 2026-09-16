@@ -22,6 +22,8 @@ Diseñar un Singleton funcional que gestione un estado interno dinámico accesib
 
 ## Resolución
 
+`UserCache` implementa un Singleton de inicialización diferida mediante una clase interna `Holder`: la instancia se crea cuando se llama por primera vez a `getInstance()`. La caché almacena pares clave-valor en un `HashMap` privado y ofrece métodos para insertar o actualizar (`put()`), consultar (`get()`), eliminar (`remove()`) y verificar la existencia de una clave (`containsKey()`). Los métodos de inserción y eliminación devuelven el valor anterior o eliminado, o `null` si la clave no existía. El ejemplo agrega un usuario, lo consulta y lo elimina. La inicialización del Singleton es segura entre hilos, aunque las operaciones sobre el `HashMap` no están sincronizadas.
+
 ```{bash}
 java e4/UserCacheExample.java
     Add new user: null

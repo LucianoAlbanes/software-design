@@ -22,6 +22,8 @@ Utilizar el patrón Singleton para canalizar la escritura concurrente hacia un r
 
 ## Resolución
 
+`EventLogger` centraliza el registro de mensajes mediante un Singleton con constructor privado e instancia `static final`. `logMessage()` combina el nivel definido por el enum `Level`, una marca temporal obtenida con `Instant.now()` y el mensaje, y guarda el resultado en un `ArrayList` en memoria. Tanto el registro como la consulta usan `synchronized` para proteger la lista ante accesos concurrentes. `getLog()` devuelve su representación como texto sin exponer la colección interna. El ejemplo registra dos mensajes desde referencias distintas y comprueba que pertenecen al mismo logger.
+
 ```{bash}
 java e3/EventLoggerExample.java
 [INFO] 2026-09-13T05:10:13.153273Z | System Started. Unit1
