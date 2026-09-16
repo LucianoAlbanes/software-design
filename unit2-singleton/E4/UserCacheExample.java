@@ -1,3 +1,5 @@
+package e4;
+
 // ALBANES, Luciano Joaquin
 
 import java.util.HashMap;
@@ -50,7 +52,7 @@ class UserCache {
 
 
 
-public class Main {
+public class UserCacheExample {
     public static void main(String[] args) {
         // getInstance
         UserCache cache = UserCache.getInstance();

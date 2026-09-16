@@ -1,3 +1,5 @@
+package e3;
+
 // ALBANES, Luciano Joaquín
 
 import java.util.ArrayList;
@@ -51,7 +53,7 @@ class EventLogger {
 
 
 
-public class Main {
+public class EventLoggerExample {
     public static void main(String[] args) {
 
         // Logger 1 add log

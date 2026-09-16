@@ -23,7 +23,7 @@ Diseñar un Singleton funcional que gestione un estado interno dinámico accesib
 ## Resolución
 
 ```{bash}
-$ java Main.java
+java e4/UserCacheExample.java
     Add new user: null
     username: luciano
     Remove User: luciano

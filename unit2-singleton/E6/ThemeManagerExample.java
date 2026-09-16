@@ -1,6 +1,8 @@
+package e6;
+
 // ALBANES, Luciano Joaquín
 
-public class Main {
+public class ThemeManagerExample {
     public static void main(String[] args) {
         ThemeManager manager = ThemeManager.getInstance();
 

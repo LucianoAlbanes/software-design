@@ -23,7 +23,7 @@ Manejar la propagación de estados globales de la interfaz mediante un punto cen
 ## Resolución
 
 ```{bash}
-$ java Main.java
+java e6/ThemeManagerExample.java
     Actual theme?: DARK
     Actual theme?: LIGHT
     Same instance?: true

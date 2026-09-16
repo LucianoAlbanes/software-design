@@ -23,7 +23,7 @@ Implementar un Singleton que coordine una estructura de datos tipo cola bajo un 
 ## Resolución
 
 ```{bash}
-$ java Main.java
+java e7/PrinterQueueExample.java
     Printed: 
             [Luciano]:Hello World!
     Printed: 

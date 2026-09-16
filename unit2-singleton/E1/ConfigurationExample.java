@@ -1,8 +1,10 @@
+package e1;
+
 // ALBANES, Luciano Joaquín
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main {
+public class ConfigurationExample {
     public static void main(String[] args) {
         // get the singleton instance two times
         ConfigurationParameters config1 = ConfigurationParameters.getInstance();

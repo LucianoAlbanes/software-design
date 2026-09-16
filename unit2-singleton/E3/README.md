@@ -23,7 +23,7 @@ Utilizar el patrón Singleton para canalizar la escritura concurrente hacia un r
 ## Resolución
 
 ```{bash}
-    $ java Main.java
+java e3/EventLoggerExample.java
 [INFO] 2026-09-13T05:10:13.153273Z | System Started. Unit1
 [INFO] 2026-09-13T05:10:13.154667Z | System Started. Unit2
 Are both references the same instance? true

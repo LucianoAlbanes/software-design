@@ -1,6 +1,8 @@
+package e5;
+
 // ALBANES, Luciano Joaquín
 
-public class Main {
+public class HardwareControllerExample {
     public static void main(String[] args) {
         Controller controller = Controller.getInstance();
 

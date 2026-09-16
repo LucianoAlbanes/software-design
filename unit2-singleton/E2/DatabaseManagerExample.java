@@ -1,3 +1,5 @@
+package e2;
+
 // ALBANES, Luciano Joaquín
 
 class DatabaseManager {
@@ -55,7 +57,7 @@ class DatabaseManager {
 
 
 
-public class Main {
+public class DatabaseManagerExample {
     public static void main(String[] args) {
         DatabaseManager dbm = DatabaseManager.getInstance();
         

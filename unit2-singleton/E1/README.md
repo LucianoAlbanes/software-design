@@ -20,7 +20,7 @@ Debe incluir un método estático de acceso público que devuelva siempre la mis
 Se implementó el patrón, almacenando las llave-valores con un HashMap. Se hardcodearon ejemplos.
 
 ```{bash}
-➜  E1 git:(unit2-singleton) ✗ java Main.java
+java e1/ConfigurationExample.java
 Both references point to the same instance.
 artemis2
 ```

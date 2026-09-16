@@ -1,7 +1,9 @@
+package e7;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Main {
+public class PrinterQueueExample {
     public static void main(String[] args) {
         Printer printer = Printer.getInstance();
 

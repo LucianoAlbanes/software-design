@@ -23,7 +23,7 @@ Controlar el acceso seguro a recursos físicos exclusivos de un sistema mediante
 ## Resolución
 
 ```{bash}
-E5 git:(unit2-singleton) ✗ java Main.java
+java e5/HardwareControllerExample.java
     Executed: bla
     true
 ```

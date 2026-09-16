@@ -25,7 +25,7 @@ Aplicar el patrón Singleton para encapsular un recurso costoso y garantizar un 
 Se simuló una conexión a una base de datos, mediante un atributo booleano `connected` que nos indica si la conexión está establecida o no.
 
 ```{bash}
-E2 git:(unit2-singleton) ✗ java Main.java
+java e2/DatabaseManagerExample.java
     Connection: false
     Connection: true
     Consulta Ejecutada correctamente (SELECT * FROM USERS;).
