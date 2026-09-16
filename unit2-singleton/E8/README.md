@@ -22,4 +22,7 @@ Refactorizar un diseño rígido basado en Singleton acoplado hacia un patrón do
 
 ## Resolución
 
-_Pendiente de resolución._
+```{bash}
+java e8/DependencyInjectionExample 
+    Processing payment: $420.69
+```
