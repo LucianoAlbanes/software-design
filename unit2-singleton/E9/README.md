@@ -22,4 +22,20 @@ Combinar el patrón Singleton con estructuras de agregación de datos y manejo e
 
 ## Resolución
 
-_Pendiente de resolución._
+`MetricsCollector` utiliza un Singleton con `ConcurrentHashMap` y `LongAdder` para acumular contadores y latencias de forma concurrente. Solo la creación de métricas nuevas usa `synchronized`, para respetar el límite de 1.000 métricas distintas. Al alcanzarlo, se actualizan las existentes y se contabilizan los registros rechazados en `droppedMetrics`. Las latencias guardan cantidad y tiempo total para calcular el promedio, sin almacenar cada medición. `export()` devuelve un resumen aproximado durante las actualizaciones; el ejemplo espera a que terminen los hilos para mostrar los valores finales.
+
+### Salida de consola
+
+```text
+=== PERFORMANCE METRICS ===
+
+Counters:
+  http.errors: 100
+  http.requests: 100000
+
+Latencies:
+  http.request: count=100000, average=19.50 ms
+
+Registered metrics: 3/1000
+Dropped metric registrations: 0
+```
