@@ -22,3 +22,10 @@ Manejar la propagación y creación dinámica de servicios de procesamiento fina
 
 ## Resolución
 
+```text
+$ java e6/PaymentExample.java
+Credit card receipt: $525.0
+Bank transfer receipt: $500.0
+Digital wallet receipt: $510.0
+Amount too low, the minimum is $100.0
+```

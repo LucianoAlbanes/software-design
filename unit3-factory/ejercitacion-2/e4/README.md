@@ -22,3 +22,12 @@ Diseñar un Factory Method que gestione la creación de componentes generadores 
 
 ## Resolución
 
+```text
+$ java e4/InvoiceExample.java
+PDF Invoice
+Subtotal: $1330.5
+VAT (21%): $279.405
+Total: $1609.905
+Ticket | Total: $1330.5
+Invalid amounts, can't issue the invoice
+```

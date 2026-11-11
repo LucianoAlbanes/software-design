@@ -22,3 +22,12 @@ Refactorizar un diseño acoplado basado en estructuras condicionales rígidas ha
 
 ## Resolución
 
+```text
+$ java e8/CompressionExamples.java
+    Compressed ZIP Comprimiendome
+    Expanded ZIP Expandiendome
+    Compressed TAR Comprimiendome
+    Expanded TAR Expandiendome
+    Compressed GZ Comprimiendome
+    Expanded GZ Expandiendome
+```

@@ -21,4 +21,8 @@ Comprender la estructura básica y el propósito fundamental del patrón Factory
 - Las clases creadoras concretas deben retornar el tipo de documento correspondiente a su especialidad.
 
 ## Resolución
-
+```text
+java e1/DocumentExample.java
+I'm a Plain Text Document!
+I'm a Rich Text Document!
+```

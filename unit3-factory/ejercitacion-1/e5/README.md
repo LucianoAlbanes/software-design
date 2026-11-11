@@ -22,3 +22,9 @@ Controlar la creación de jerarquías de objetos complejos con configuraciones i
 
 ## Resolución
 
+```text
+$ java e5/CharacterExample.java
+Warrior | HP: 150 | ATK: 20 | DEF: 15 | Weapon: Sword
+Mage | HP: 80 | ATK: 30 | DEF: 5 | Weapon: Staff
+Archer | HP: 100 | ATK: 25 | DEF: 8 | Weapon: Bow
+```

@@ -22,3 +22,9 @@ Refactorizar un diseño acoplado basado en estructuras condicionales rígidas ha
 
 ## Resolución
 
+```text
+$ java e8/ImportExamples.java
+    Imported CSV Importandome
+    Imported XML Importandome
+    Imported JSON Importandome
+```

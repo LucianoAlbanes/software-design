@@ -22,3 +22,8 @@ Comprender la estructura básica y el propósito fundamental del patrón Factory
 
 ## Resolución
 
+```text
+$ java e1/ProfileExample.java
+Student: view courses, submit assignments
+Teacher: view courses, grade assignments, edit courses
+```

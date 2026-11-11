@@ -21,4 +21,14 @@ Diseñar un Factory Method que gestione la creación de componentes generadores 
 - Las clases de exportación concreta deben encapsular por completo la librería o lógica de formato correspondiente.
 
 ## Resolución
-
+```text
+$ java e4/FinancialReportExample.java
+    Downloading as pdf...
+    Concept | Amount
+    Sales | 15000
+    Expenses | 6200
+    Downloading as csv...
+    Concept,Amount
+    Sales,15000
+    Expenses,6200
+```

@@ -22,3 +22,12 @@ Diseñar un reto avanzado que combine el Factory Method con principios SOLID, ge
 
 ## Resolución
 
+```text
+$ java e9/SensorChannelExample.java                    
+    ModBus abierto: true
+    Lectura: 21.5
+    Error: SPI: dirección 0x1ff fuera de rango (máx 0xff)
+    Error: Puerto 1-Wire no disponible
+    Creados: {ModBus=1, I2C=1, SPI=1}
+    Fallidos: {1-Wire=1}
+```

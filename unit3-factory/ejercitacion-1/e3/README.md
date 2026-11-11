@@ -21,4 +21,8 @@ Utilizar el patrón Factory Method para estandarizar la creación de objetos que
 - La creación de los objetos de notificación debe resolverse exclusivamente a través de los métodos de fábrica correspondientes.
 
 ## Resolución
-
+```text
+$ java e3/NotificationExample.java
+    SMS Sent: Hello from an SMS!
+    Email Sent: Hello Internet!
+```

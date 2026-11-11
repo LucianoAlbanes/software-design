@@ -22,3 +22,14 @@ Implementar un Factory Method que coordine la creación de familias de objetos v
 
 ## Resolución
 
+```text
+$ java e7/UIElementsExample.java
+
+    [Desktop Oscuro Button]
+    Click en DesktopButton
+    [Desktop Oscuro TextField] Hello!
+
+    [Mobile Minimalista Button]
+    Click en MobileButton
+    [Mobile Minimalista TextField] Hello!
+```

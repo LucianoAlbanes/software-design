@@ -22,3 +22,8 @@ Aplicar el patrón Factory Method para encapsular la lógica de selección y con
 
 ## Resolución
 
+```text
+$ java e2/DatabaseExample.java
+    SQLite query: SELECT 1;
+    PostregSQL query: SELECT 2;
+```

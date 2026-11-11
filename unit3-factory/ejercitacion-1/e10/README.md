@@ -22,3 +22,11 @@ Desarrollar un Factory Method robusto de grado empresarial que combine seguridad
 
 ## Resolución
 
+```text
+$ java e10/InvoiceExample.java
+    Invoice[country=AR, amount=1500.0, authCode=CAE-48ad78eb, seal=48ad78eb]
+    Invoice[country=MX, amount=800.0, authCode=UUID-6441b0ce, seal=6441b0ce]
+    Error: Falta el dato obligatorio: puntoVenta
+    Error: Falta el dato obligatorio: cuit
+    Error: El monto debe ser mayor a 0
+```

@@ -22,3 +22,14 @@ Implementar un Factory Method que coordine la creación de familias de objetos v
 
 ## Resolución
 
+```text
+$ java e7/UISizesExample.java
+
+[Desktop Button] size 1920x1080px
+Click en DesktopButton
+[Desktop Label] size 1920x1080px Hello!
+
+[Mobile Button] size 1080x2400px
+Click en MobileButton
+[Mobile Label] size 1080x2400px Hello!
+```

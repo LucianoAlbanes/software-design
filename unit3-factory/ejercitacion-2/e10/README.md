@@ -22,3 +22,11 @@ Desarrollar un Factory Method robusto de grado empresarial que combine seguridad
 
 ## Resolución
 
+```text
+$ java e10/PropertyTitleExample.java              
+    PropertyTitle[jurisdiction=AR, fiscalValue=2.5E7, notarialCode=ESC-df8a23fc, signature=df8a23fc]
+    PropertyTitle[jurisdiction=MX, fiscalValue=900000.0, notarialCode=FR-eeda6ef4, signature=eeda6ef4]
+    Error: Falta el dato obligatorio: matricula
+    Error: Falta el dato obligatorio: dni
+    Error: El valor fiscal debe ser mayor a 0
+```

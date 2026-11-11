@@ -22,3 +22,11 @@ Diseñar un reto avanzado que combine el Factory Method con principios SOLID, ge
 
 ## Resolución
 
+```text
+$ java e9/IOTControllerExample.java
+    MQTT conectado: true
+    Error: CoAP: esquema de URL inválido en http://mal-esquema
+    Error: Gateway LoRa no disponible
+    Creados: {MQTT=1, HTTP=1, CoAP=1}
+    Fallidos: {LoRa=1}
+```

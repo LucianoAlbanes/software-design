@@ -22,3 +22,8 @@ Controlar la creación de jerarquías de objetos complejos con configuraciones i
 
 ## Resolución
 
+```text
+$ java e5/EnemyExample.java
+Soldier | HP: 100 | DMG: 10 | SPD: 5 | Tactic: Take cover and shoot
+Combat Drone | HP: 60 | DMG: 15 | SPD: 12 | Tactic: Fly around the player
+```

@@ -22,3 +22,10 @@ Aplicar el patrón Factory Method para encapsular la lógica de selección y con
 
 ## Resolución
 
+```text
+$ java e2/StorageExample.java
+Saved on local disk: photo.jpg
+Retrieved from local disk: photo.jpg
+Uploaded to the cloud: video.mp4
+Downloaded from the cloud: video.mp4
+```

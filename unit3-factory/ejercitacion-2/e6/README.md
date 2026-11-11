@@ -22,3 +22,10 @@ Manejar la propagación y creación dinámica de servicios de cálculo logístic
 
 ## Resolución
 
+```text
+$ java e6/ShippingExample.java
+PostalShipping: $550.0, 5 days
+ExpressShipping: $1340.0, 2 days
+PickupShipping: $0.0, 3 days
+PickupShipping: invalid destination 'Av. San Martin 123'
+```

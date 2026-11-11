@@ -22,3 +22,8 @@ Utilizar el patrón Factory Method para estandarizar la creación de objetos que
 
 ## Resolución
 
+```text
+$ java e3/AlertExample.java
+ALERT: CPU usage above 90%
+Saved in alerts.log: CPU usage above 90%
+```
