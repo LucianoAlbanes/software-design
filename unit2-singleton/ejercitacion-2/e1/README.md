@@ -25,3 +25,8 @@ Implementar un Singleton básico que centralice la configuración y permita comp
 
 ## Resolución
 
+```text
+$ java e1/LibraryConfigurationExample.java
+    Same instances
+    ITU's Great Library
+```

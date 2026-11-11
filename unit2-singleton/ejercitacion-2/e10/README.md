@@ -29,3 +29,13 @@ Integrar Singleton, estado compartido y operaciones atómicas para evitar asigna
 
 ## Resolución
 
+```text
+$ java e10/AppointmentManagerExample.java
+    Same instance in all threads? true
+    Successful bookings for 09:00: 1/20
+    Self-service agenda: [09:00 Patient 3 (Reception), 09:20 Patient 21 (Reception), 09:40 FREE]
+    Cancel 09:40 (free): false
+    Reception agenda: [09:00 Patient 3 (Reception), 09:20 Patient 21 (Reception), 09:40 FREE]
+    Cancel 09:00: true
+    Reception agenda: [09:00 FREE, 09:20 Patient 21 (Reception), 09:40 FREE]
+```

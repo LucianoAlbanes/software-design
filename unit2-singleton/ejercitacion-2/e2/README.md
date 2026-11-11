@@ -25,4 +25,13 @@ Utilizar Singleton para centralizar la incorporación y consulta de eventos prov
 - No se permite resolver el ejercicio mediante una clase compuesta únicamente por métodos y atributos estáticos.
 
 ## Resolución
-
+```text
+$ java e2/LibraryEventLoggerExample.java
+    [PRESTAMOS] 2026-11-10T19:16:09.487649Z | Prestamo a Fulano Mingano - B102
+    [ATENCION_A_SOCIOS] 2026-11-10T19:16:09.489426Z | Alta Débito Automático - S100
+    [PRESTAMOS] 2026-11-10T19:16:09.489454Z | Prestamo a Mengano Zutano - B205
+    Are both references the same instance? true
+    [[PRESTAMOS] 2026-11-10T19:16:09.487649Z | Prestamo a Fulano Mingano - B102, [ATENCION_A_SOCIOS] 2026-11-10T19:16:09.489426Z | Alta Débito Automático - S100, [PRESTAMOS] 2026-11-10T19:16:09.489454Z | Prestamo a Mengano Zutano - B205]
+    [[PRESTAMOS] 2026-11-10T19:16:09.487649Z | Prestamo a Fulano Mingano - B102, [PRESTAMOS] 2026-11-10T19:16:09.489454Z | Prestamo a Mengano Zutano - B205]
+    Total events: 3
+```

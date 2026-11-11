@@ -28,3 +28,15 @@ Implementar un Singleton seguro ante concurrencia y proteger las operaciones sob
 
 ## Resolución
 
+```text
+$ java e5/ReadingRoomExample.java
+    Same instance in all threads? true
+    Accepted: 10 | Rejected: 20
+    Active: [S100, S103, S104, S102, S101, S105, S106, S107, S108, S109]
+    Available seats: 0
+    Duplicated S100 accepted? false
+    Cancel S100: true
+    Available seats: 1
+    Cancel S999: false
+    Available seats: 1
+```

@@ -27,3 +27,16 @@ Centralizar información mediante Singleton y proteger la integridad de un regis
 
 ## Resolución
 
+```text
+$ java e8/SupplyRegistryExample.java
+    Same instance? true
+    Not enough JERINGAS (balance 40).
+    Not enough ALCOHOL (balance 0).
+    Quantity must be greater than 0.
+    All: [[DEPOSITO] ENTRADA 100 x GUANTES, [DEPOSITO] ENTRADA 50 x JERINGAS, [CONSULTORIOS] SALIDA 30 x GUANTES, [LABORATORIO] SALIDA 20 x GUANTES, [LABORATORIO] SALIDA 10 x JERINGAS]
+    GUANTES: [[DEPOSITO] ENTRADA 100 x GUANTES, [CONSULTORIOS] SALIDA 30 x GUANTES, [LABORATORIO] SALIDA 20 x GUANTES]
+    LABORATORIO: [[LABORATORIO] SALIDA 20 x GUANTES, [LABORATORIO] SALIDA 10 x JERINGAS]
+    Balance GUANTES: 50
+    Balance JERINGAS: 40
+    History can't be modified from client code.
+```

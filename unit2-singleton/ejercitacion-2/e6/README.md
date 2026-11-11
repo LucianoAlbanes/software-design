@@ -25,3 +25,13 @@ Aplicar Singleton con inicialización diferida para compartir parámetros genera
 
 ## Resolución
 
+```text
+$ java e6/HospitalConfigurationExample.java
+    Instances before first call: 0
+    Instances after first call: 1
+    Instances after more calls: 1
+    Same instance? true
+    Office: Hospital Regional San Martín | 07:30-21:00 | 15 min
+    Closing time must be after opening time.
+    Appointment duration must be greater than 0.
+```

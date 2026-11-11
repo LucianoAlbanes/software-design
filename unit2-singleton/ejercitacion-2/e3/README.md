@@ -26,3 +26,13 @@ Administrar una colección compartida mediante una instancia Singleton con opera
 
 ## Resolución
 
+```text
+$ java e3/BookCatalogExample.java
+    Same instance? true
+    Query screen: [B101 | Design Patterns - Gamma et al. (2), B102 | Clean Code - Robert C. Martin (3), B103 | Ficciones - Jorge Luis Borges (1)]
+    Search 'borges': [B103 | Ficciones - Jorge Luis Borges (1)]
+    Search 'design': [B101 | Design Patterns - Gamma et al. (5)]
+    Duplicated code: B101
+    Code and title can't be blank.
+    Copies can't be negative.
+```

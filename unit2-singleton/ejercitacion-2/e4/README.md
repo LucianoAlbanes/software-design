@@ -27,3 +27,12 @@ Utilizar Singleton para mantener un estado compartido y aplicar reglas de negoci
 
 ## Resolución
 
+```text
+$ java e4/LoanManagerExample.java
+    Same instance? true
+    Desk 2: Copy B101-1 is already lent.
+    S100 loans: [B101-1 -> S100 (2026-11-10), B101-2 -> S100 (2026-11-10)]
+    S200 loans: [B101-1 -> S200 (2026-11-11)]
+    Desk 1: Copy B999-1 has no active loan.
+    Active loans before/after: 2/2
+```
