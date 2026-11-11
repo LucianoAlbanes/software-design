@@ -1,0 +1,11 @@
+{
+  "java.project.sourcePaths": [
+    "unit2-singleton/ejercitacion-1",
+    "unit2-singleton/ejercitacion-2",
+    "unit3-factory/ejercitacion-1",
+    "unit3-factory/ejercitacion-2",
+    "unit4-observer/ejercitacion-1",
+    "unit4-observer/ejercitacion-2"
+  ],
+  "java.project.outputPath": "out"
+}
