@@ -22,3 +22,16 @@ Aplicar el patrón Observer para desacoplar el estado central de un componente m
 
 ## Resolución
 
+```text
+$ java e2/InterfaceSyncExample.java  
+    Subscribed all 3 UI elements and set to Playing: Superestrella - Aitana
+
+    FooterBar: PLAYING | Superestrella - Aitana
+    Widget: PLAYING | Superestrella - Aitana
+    FloatingWindow: PLAYING | Superestrella - Aitana
+
+    Unsubscribed FooterBar and updated to Paused with Colombiana - Airbag.
+    FooterBar: PLAYING | Superestrella - Aitana
+    Widget: PAUSED | Colombiana - Airbag
+    FloatingWindow: PAUSED | Colombiana - Airbag
+```

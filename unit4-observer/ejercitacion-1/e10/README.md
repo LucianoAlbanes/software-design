@@ -22,3 +22,22 @@ Desarrollar un Observer robusto de grado empresarial que combine seguridad estri
 
 ## Resolución
 
+```text
+$ java e10/RiskComplianceExample.java
+    Client C-001 changed to MEDIUM
+    [LegalCheck] Checking client C-001 (MEDIUM)
+    [MoneyCheck] Checking money moves of C-001
+    [ReportService] Report done for C-001
+
+    Client C-002 changed to HIGH (ReportService fails)
+    [LegalCheck] Checking client C-002 (HIGH)
+    [MoneyCheck] Checking money moves of C-002
+
+    Log:
+    C-001 | LegalCheck | OK
+    C-001 | MoneyCheck | OK
+    C-001 | ReportService | OK
+    C-002 | LegalCheck | OK
+    C-002 | MoneyCheck | OK
+    C-002 | ReportService | ERROR: can't make report for HIGH
+```

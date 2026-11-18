@@ -22,3 +22,13 @@ Controlar la interacción segura en escenarios complejos de múltiples sujetos o
 
 ## Resolución
 
+```text
+$ java e5/LightSensorExample.java
+    Strong sun on the front (900 lux)...
+    [Blinds Living room] closing (900 lux)
+    [IndoorLights] Front sensor says 900 lux -> lights at 20%
+
+    Cloudy on the back (200 lux)...
+    [Blinds Bedroom] opening (200 lux)
+    [IndoorLights] Back sensor says 200 lux -> lights at 80%
+```

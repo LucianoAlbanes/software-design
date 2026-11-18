@@ -22,3 +22,19 @@ Implementar un Observer que gestione suscripciones filtradas y selectivas bajo u
 
 ## Resolución
 
+```text
+$ java e7/NewsChannelsExample.java
+    Publishing one article per category...
+    [Ana] New TECHNOLOGY article: New M5 chip released
+    [Ana] New SPORTS article: Godoy Cruz wins the derby
+    [Bruno] New SPORTS article: Godoy Cruz wins the derby
+    [Carla] New ECONOMY article: Inflation slows down
+
+    Ana unsubscribed from SPORTS. Publishing another sports article...
+    [Bruno] New SPORTS article: Mendoza marathon this Sunday
+
+    Inboxes:
+    Ana: [New M5 chip released, Godoy Cruz wins the derby]
+    Bruno: [Godoy Cruz wins the derby, Mendoza marathon this Sunday]
+    Carla: [Inflation slows down]
+```

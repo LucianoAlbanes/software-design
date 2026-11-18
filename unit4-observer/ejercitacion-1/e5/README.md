@@ -22,3 +22,15 @@ Controlar la interacción segura en escenarios complejos de múltiples sujetos o
 
 ## Resolución
 
+```text
+$ java e5/SmokeSensorExample.java
+    Smoke detected on floor 1...
+    [AlarmCentral] Siren ON. Emergency at: Floor 1 - Kitchen
+    [Concierge] Calling firefighters and evacuating: Floor 1 - Kitchen
+    [SprinklerSystem Floor 1] Opening sprinklers at: Floor 1 - Kitchen
+
+    Smoke detected on floor 2...
+    [AlarmCentral] Siren ON. Emergency at: Floor 2 - Office 204
+    [Concierge] Calling firefighters and evacuating: Floor 2 - Office 204
+    [SprinklerSystem Floor 2] Opening sprinklers at: Floor 2 - Office 204
+```

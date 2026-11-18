@@ -22,3 +22,16 @@ Diseñar un reto avanzado que combine el patrón Observer con un bus de eventos 
 
 ## Resolución
 
+```text
+$ java e9/EventBusExample.java
+    Publishing UserRegistered...
+    [MailService] Sending mail for UserRegistered to luciano
+
+    Publishing PaymentApproved (BrokenService throws, the rest still run)...
+    [EventBus] Failed: BrokenService | service unavailable
+    [MailService] Sending mail for PaymentApproved to luciano
+    [BillingService] Invoice created for $15000
+
+    Publishing OrderShipped (nobody listens)...
+    [EventBus] No listeners for OrderShipped
+```

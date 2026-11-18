@@ -22,3 +22,14 @@ Aplicar el patrón Observer para desacoplar la fuente de estado de red de sus m�
 
 ## Resolución
 
+```text
+$ java e2/NetworkStatusExample.java
+    Network CONNECTED
+    Icon: green | Text: Network: CONNECTED
+
+    Network UNSTABLE
+    Icon: yellow | Text: Network: UNSTABLE
+
+    Removed ToolbarIcon. Network DISCONNECTED
+    Icon: yellow | Text: Network: DISCONNECTED
+```

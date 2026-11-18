@@ -22,3 +22,16 @@ Utilizar el patrón Observer para canalizar eventos de cambio de puntuación hac
 
 ## Resolución
 
+```text
+$ java e3/GameScoreExample.java
+    Player destroys an obstacle and picks a coin...
+    [GameScreen] SCORE: 100
+    [RecordBook] New record: 100
+    [GameScreen] SCORE: 150
+    [RecordBook] New record: 150
+
+    Removed RecordBook. Player picks another coin...
+    [GameScreen] SCORE: 200
+
+    Best score saved: 150
+```

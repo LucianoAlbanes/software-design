@@ -22,3 +22,14 @@ Refactorizar un diseño acoplado basado en dependencias directas hacia un patró
 
 ## Resolución
 
+```text
+$ java e8/InventoryRefactorExample.java
+    Selling 3 units...
+    [BillingModule] Invoice for 3 x Mate
+    [StatsModule] Mate stock now: 7
+
+    Restocking 5 units...
+    [StatsModule] Mate stock now: 12
+
+    Stats: 3 sold, 5 restocked
+```

@@ -22,3 +22,12 @@ Utilizar el patrón Observer para canalizar eventos de negocio hacia múltiples 
 
 ## Resolución
 
+```text
+$ java e3/EventSubsExample.java
+    Sending an event...
+    [Audit Module] Event received: Alta empleado: Fulano
+    [Log Module] Event stored in disk.
+
+    Unsuscribe sub2 and sent something more.
+    [Audit Module] Event received: Baja empleado: Miriam
+```

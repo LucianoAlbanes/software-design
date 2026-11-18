@@ -22,3 +22,19 @@ Manejar la propagación eficiente de datos numéricos frecuentes mediante un pun
 
 ## Resolución
 
+```text
+$ java e6/CurrencyQuoteExample.java
+    First values: USD 1400, EUR 1600
+    [TrendChart] USD -
+    [ConversionTable] 1 USD = $1400.00 ARS (+0.00%)
+    [TrendChart] EUR -
+    [ConversionTable] 1 EUR = $1600.00 ARS (+0.00%)
+
+    USD goes up to 1540
+    [TrendChart] USD up
+    [ConversionTable] 1 USD = $1540.00 ARS (+10.00%)
+    [LimitAlarm] USD over 1500.0!
+
+    Removed TrendChart. EUR goes down to 1580
+    [ConversionTable] 1 EUR = $1580.00 ARS (-1.25%)
+```

@@ -22,3 +22,16 @@ Implementar un Observer que gestione suscripciones filtradas y selectivas bajo u
 
 ## Resolución
 
+```text
+$ java e7/VideoChannelsExample.java
+    Uploading one video per channel...
+    [Ana] Pop-up: new video on tech-ch: Building a PC (15 min)
+    [Bruno] Pop-up: new video on tech-ch: Building a PC (15 min)
+    [Ana] Pop-up: new video on cooking-ch: Empanadas mendocinas (8 min)
+    [Carla] Pop-up: new video on music-ch: Live in Mendoza (60 min)
+
+    Ana unfollowed tech-ch. Uploading another tech video...
+    [Bruno] Pop-up: new video on tech-ch: Linux for beginners (20 min)
+
+    Nobody follows gaming-ch...
+```

@@ -22,3 +22,17 @@ Diseñar un reto avanzado que combine el patrón Observer con un bus de eventos 
 
 ## Resolución
 
+```text
+$ java e9/ServerAlertBusExample.java
+    node-1 publishes CPU_HIGH...
+    [AutoScaler] Adding one more server
+    [PagerService] Calling on-duty admin: [WARNING] node-1: CPU at 90%
+
+    node-2 publishes DISK_FAILURE (BrokenService throws, the rest still run)...
+    [AlertBus] Failed: BrokenService | service unavailable
+    [BackupService] Restoring last backup
+    [PagerService] Calling on-duty admin: [CRITICAL] node-2: disk /dev/sda failed
+
+    node-3 publishes LOW_MEMORY (nobody listens)...
+    [AlertBus] No listeners for LOW_MEMORY
+```

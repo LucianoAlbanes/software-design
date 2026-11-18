@@ -22,3 +22,12 @@ Diseñar un Observer funcional que gestione un estado interno dinámico con regl
 
 ## Resolución
 
+```text
+$ java e4/StockThresholdAlertExample.java
+    Selling one unit (should not fire)
+    Selling another unit (should not fire)
+    Selling another unit (should fire)
+    [PurchaseDepartment] Product: Phone 18 has low stock (4) -> ordering 16 units
+    [MarketingSystem] Product: Phone 18 has low stock (4) -> starting clearance campaign
+    Selling another unit (should not fire again)
+```

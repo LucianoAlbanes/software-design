@@ -22,3 +22,22 @@ Desarrollar un Observer robusto de grado empresarial que combine seguridad estri
 
 ## Resolución
 
+```text
+$ java e10/AccountRiskExample.java
+    Account ACME-01 changed to MEDIUM
+    [MoneyCheck] Checking money moves of ACME-01
+    [LegalCheck] Checking account ACME-01 (MEDIUM)
+    [RegulatorNotice] Notice sent for ACME-01
+
+    Account ACME-02 changed to HIGH (RegulatorNotice fails)
+    [MoneyCheck] Checking money moves of ACME-02
+    [LegalCheck] Checking account ACME-02 (HIGH)
+
+    Log:
+    ACME-01 | MoneyCheck | OK
+    ACME-01 | LegalCheck | OK
+    ACME-01 | RegulatorNotice | OK
+    ACME-02 | MoneyCheck | OK
+    ACME-02 | LegalCheck | OK
+    ACME-02 | RegulatorNotice | ERROR: regulator server not responding
+```

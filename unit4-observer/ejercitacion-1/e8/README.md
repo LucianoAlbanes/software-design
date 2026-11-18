@@ -22,3 +22,15 @@ Refactorizar un diseño acoplado basado en dependencias directas hacia un patró
 
 ## Resolución
 
+```text
+$ java e8/TaskRefactorExample.java
+    Moving task to IN_PROGRESS...
+    [EmailNotifier] Mail sent: 'Write observer TP' TODO -> IN_PROGRESS
+    [StatsModule] Change registered (1 total)
+
+    Moving task to DONE...
+    [EmailNotifier] Mail sent: 'Write observer TP' IN_PROGRESS -> DONE
+    [StatsModule] Change registered (2 total)
+
+    Stats: 2 changes, 1 done
+```

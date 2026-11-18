@@ -22,3 +22,14 @@ Comprender la estructura básica y el propósito fundamental del patrón Observe
 
 ## Resolución
 
+```text
+$ java e1/TempNotificatorExample.java
+    Subcribed all 3 screens and updated temp to 42.5...
+    Sub1 temp: 42.5
+    Sub2 temp: 42.5
+    Sub3 temp: 42.5
+    Removed sub1 and updated temp to 35.
+    Sub1 temp: 42.5
+    Sub2 temp: 35.0
+    Sub3 temp: 35.0
+```

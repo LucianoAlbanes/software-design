@@ -22,3 +22,14 @@ Comprender la estructura básica y el propósito fundamental del patrón Observe
 
 ## Resolución
 
+```text
+$ java e1/ButtonClickExample.java
+    Clicking the button...
+    [MainWindow] Button 'Save' clicked -> saving file
+    [ClickCounter] Clicks: 1
+
+    Removed MainWindow and clicked again.
+    [ClickCounter] Clicks: 2
+
+    Total clicks counted: 2
+```

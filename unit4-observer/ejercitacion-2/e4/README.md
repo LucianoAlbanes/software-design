@@ -22,3 +22,15 @@ Diseñar un Observer funcional que gestione un estado interno dinámico con regl
 
 ## Resolución
 
+```text
+$ java e4/PriceDropAlertExample.java
+    Price goes up to 110000 (should not fire)
+
+    Price drops to 104500 (-5%)
+    [EmailAlert] Small discount, no mail
+    [WebPanel] Headphones: $110000 -> $104500 (-5%)
+
+    Price drops to 83600 (-20%)
+    [EmailAlert] Mail: Headphones is now $83600 (-20%)
+    [WebPanel] Headphones: $104500 -> $83600 (-20%)
+```

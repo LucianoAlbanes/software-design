@@ -22,3 +22,17 @@ Manejar la propagación eficiente de datos numéricos frecuentes mediante un pun
 
 ## Resolución
 
+```text
+$ java e6/StockQuoteExample.java
+    Price 100 -> 102
+    [LineChart] New point for YPF: 102.0
+    [SummaryTable] YPF | 102.00 | +2.00%
+
+    Price 102 -> 95 (big drop)
+    [LineChart] New point for YPF: 95.0
+    [SummaryTable] YPF | 95.00 | -6.86%
+    [VolatilityAlert] YPF moved -6.86%!
+
+    Unsubscribed LineChart. Price 95 -> 96
+    [SummaryTable] YPF | 96.00 | +1.05%
+```
