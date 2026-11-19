@@ -78,3 +78,7 @@ Repository for assignments and projects for the Software Design course.
   - [Ej8 - Refactorización de Código Acoplado hacia Bus de Eventos](unit4-observer/ejercitacion-2/e8/)
   - [Ej9 - Motor Asíncrono de Eventos para Monitoreo de Servidores](unit4-observer/ejercitacion-2/e9/)
   - [Ej10 - Sistema Empresarial de Cumplimiento Normativo y Auditoría de Riesgos](unit4-observer/ejercitacion-2/e10/)
+
+# Evaluación Global Integradora (EGI)
+
+- [Despachos de GNC con el patrón Observer](egi/): un despacho que manda la interfaz de surtidores por POST llega a una central (Subject) que lo reparte a un registro de despachos y a un acumulador de m³ por surtidor, sin que el receptor los conozca. Incluye un Singleton para la traza, una demo por consola y un dashboard local. Todos los derechos reservados: ver [`egi/LICENSE`](egi/LICENSE).
