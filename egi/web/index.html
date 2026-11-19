@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recorrido de un despacho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel: #e6e9e8;      /* fondo: chapa galvanizada */
+    --panel: #f7f8f7;
+    --ink: #1f2a2e;
+    --ink-soft: #56636a;
+    --rule: #c5cccb;
+    --gas: #e0a812;        /* caño de gas */
+    --gas-dark: #8a6505;
+    --ok: #237a4b;
+    --stop: #b8332a;
+    --idle: #6b777b;
+    --focus: #1d5fbf;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --steel: #192124; --panel: #212b2f; --ink: #e5ebea; --ink-soft: #a3b0b4;
+      --rule: #3a474c; --gas: #e8b324; --gas-dark: #f3cf6a; --ok: #4cc286;
+      --stop: #f06a5f; --idle: #93a1a7; --focus: #7fb0ff; color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--steel); color: var(--ink);
+    font: 400 16px/1.45 "Barlow", system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  main { max-width: 1240px; margin: 0 auto; padding: 20px 16px 40px; }
+  h1, h2 { font-family: "Barlow Condensed", "Barlow", sans-serif; margin: 0; }
+  h1 { font-size: 2.1rem; font-weight: 700; line-height: 1.05; }
+  h2 { font-size: 1.25rem; font-weight: 600; }
+  .sub { color: var(--ink-soft); margin: 4px 0 0; max-width: 70ch; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+  header { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: end; justify-content: space-between; }
+  .counts { display: flex; gap: 22px; align-items: end; flex-wrap: wrap; }
+  .count b { display: block; font: 600 2rem/1 "Barlow Condensed", sans-serif; }
+  .count span { color: var(--ink-soft); font-size: .9rem; }
+  .count.dup b { color: var(--stop); }
+  .count.notif b { color: var(--idle); }
+  .btn {
+    border: 1.5px solid var(--ink); background: transparent; border-radius: 4px;
+    padding: 7px 14px; font-weight: 600; min-height: 40px;
+  }
+  .btn.primary { background: var(--ink); color: var(--steel); }
+  .btn:hover { background: var(--ink); color: var(--steel); }
+
+  /* Caño */
+  .pipeline { margin: 0 0 16px; background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; }
+  .pipe-scroll { overflow-x: auto; }
+  .pipeline svg { display: block; width: 100%; min-width: 760px; height: auto; }
+  .pipe { stroke: var(--gas); stroke-width: 12; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .pipe-edge { stroke: var(--gas-dark); stroke-width: 16; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: .55; }
+  .pipe.closed { stroke: var(--idle); stroke-dasharray: 2 12; stroke-width: 6; }
+  .pipe-edge.closed { opacity: 0; }
+  .node rect { fill: var(--panel); stroke: var(--ink); stroke-width: 2; }
+  .node .t { font: 600 19px "Barlow Condensed", sans-serif; fill: var(--ink); }
+  .node .c { font: 500 13px "Barlow", sans-serif; fill: var(--ink-soft); }
+  .node .r { font: 600 12px "Barlow", sans-serif; fill: var(--gas-dark); }
+  .node.subject rect { stroke-width: 3; }
+  .outlet { cursor: pointer; }
+  .outlet.off rect { stroke: var(--idle); stroke-dasharray: 5 4; }
+  .outlet.off .t { fill: var(--idle); }
+  .outlet .state { font: 600 12px "Barlow", sans-serif; }
+  .outlet:focus-visible { outline: none; }
+  .outlet:focus-visible rect { stroke: var(--focus); stroke-width: 4; }
+  .flash-ok rect { fill: color-mix(in srgb, var(--ok) 22%, var(--panel)); }
+  .flash-err rect { fill: color-mix(in srgb, var(--stop) 22%, var(--panel)); }
+  .token circle { fill: var(--gas); stroke: var(--ink); stroke-width: 2.5; }
+  .token text { font: 700 15px "Barlow Condensed", sans-serif; fill: var(--ink); }
+  .stamp { font: 700 15px "Barlow Condensed", sans-serif; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; padding: 0 16px 12px; color: var(--ink-soft); font-size: .9rem; }
+  .legend i { display: inline-block; width: 22px; height: 8px; border-radius: 4px; vertical-align: middle; margin-right: 6px; }
+
+  /* Dato en tránsito */
+  .transit { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .raw, .obj { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; min-width: 0; }
+  .raw code { display: block; font: 13px/1.5 ui-monospace, "SF Mono", Menlo, monospace; overflow-wrap: anywhere; color: var(--ink); }
+  .raw code .k { color: var(--gas-dark); font-weight: 600; }
+  .obj dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; margin: 0; }
+  .obj dt { color: var(--ink-soft); }
+  .obj dd { margin: 0; font-weight: 600; }
+  .label { color: var(--ink-soft); font-size: .9rem; margin: 0 0 6px; }
+
+  /* Paneles */
+  .layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 16px; align-items: start; margin-top: 18px; }
+  .caps-box { position: sticky; top: 12px; max-height: calc(100vh - 24px); display: flex; flex-direction: column; }
+  .caps-box .caps { flex: 1; min-height: 0; max-height: none; }
+  .right { min-width: 0; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; align-items: start; }
+  section.box { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 14px; min-width: 0; }
+  section.box > h2 { margin-bottom: 4px; }
+  section.box > .label { margin-bottom: 10px; }
+  .caps { list-style: none; margin: 0; padding: 0; max-height: 470px; overflow: auto; }
+  .caps li { display: grid; grid-template-columns: 28px 1fr auto; gap: 8px; align-items: center; padding: 6px 0; border-top: 1px solid var(--rule); }
+  .caps li:first-child { border-top: 0; }
+  .caps .n { color: var(--ink-soft); }
+  .caps .what { font-weight: 600; }
+  .caps .what small { display: block; font-weight: 400; color: var(--ink-soft); }
+  .caps .sent .what { color: var(--ink-soft); }
+  .caps button { border: 1.5px solid var(--ink); background: transparent; border-radius: 4px; padding: 4px 8px; min-height: 36px; width: 84px; font-weight: 600; }
+  .caps button:hover { background: var(--gas); }
+  .row-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th { text-align: left; font-weight: 500; color: var(--ink-soft); border-bottom: 1.5px solid var(--ink); padding: 4px 6px; }
+  td { padding: 5px 6px; border-bottom: 1px solid var(--rule); }
+  td.num, th.num { text-align: right; }
+  tr.fresh td { background: color-mix(in srgb, var(--gas) 25%, transparent); transition: background 2s; }
+  .empty { color: var(--ink-soft); padding: 12px 0; }
+  .tablewrap { overflow-x: auto; }
+
+  .pumps { display: grid; gap: 10px; }
+  .pump { display: grid; grid-template-columns: 76px 1fr 64px; gap: 8px; align-items: center; }
+  .pump .bar { height: 18px; background: var(--steel); border-radius: 3px; overflow: hidden; }
+  .pump .bar i { display: block; height: 100%; background: var(--gas); border-right: 2px solid var(--gas-dark); transition: width .6s ease; }
+  .pump .v { text-align: right; font-weight: 600; }
+  .total { margin-top: 12px; padding-top: 10px; border-top: 1.5px solid var(--ink); display: flex; justify-content: space-between; font-weight: 600; }
+  .gap { margin-top: 10px; color: var(--ink-soft); font-size: .92rem; }
+  .gap b { color: var(--stop); }
+  .off-note { color: var(--idle); font-weight: 600; font-size: .9rem; }
+
+  .trace { margin-top: 16px; }
+  .trace ol { list-style: none; margin: 0; padding: 0; max-height: 300px; overflow: auto; font: 13px/1.55 ui-monospace, "SF Mono", Menlo, monospace; }
+  .trace li { display: grid; grid-template-columns: 96px 86px 48px 1fr; gap: 8px; padding: 1px 0; }
+  .trace .h { color: var(--ink-soft); }
+  .trace .s { font-weight: 700; }
+  .trace .r-duplicate .x, .trace .r-error .x { color: var(--stop); }
+  .trace .r-ignored .x { color: var(--idle); }
+  .trace .r-ok.st-OBSERVER .x { color: var(--ok); }
+
+  .rights { margin-top: 20px; color: var(--ink-soft); font-size: .85rem; }
+  @media (max-width: 1100px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    .caps-box { position: static; max-height: none; }
+    .caps-box .caps { max-height: 300px; }
+  }
+  @media (max-width: 720px) {
+    .grid, .transit { grid-template-columns: minmax(0, 1fr); }
+    .trace li { grid-template-columns: 70px 1fr; }
+    .trace li .h, .trace li .r { display: none; }
+    h1 { font-size: 1.7rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    tr.fresh td, .pump .bar i { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>Recorrido de un despacho de GNC</h1>
+      <p class="sub">Cada POST de la interfaz COR-WS entra por HTTP, se lee, pasa por la central (el sujeto del patrón Observer) y se reparte a los observadores suscriptos. Datos: 13 POST reales del 3/11/2026.</p>
+    </div>
+    <div class="counts" aria-live="polite">
+      <div class="count"><b id="c-new">0</b><span>despachos nuevos</span></div>
+      <div class="count dup"><b id="c-dup">0</b><span>repetidos descartados</span></div>
+      <div class="count notif"><b id="c-notif">0</b><span>notificaciones</span></div>
+      <button class="btn" id="reset">Reiniciar</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <section class="box caps-box" aria-labelledby="caps-h">
+    <h2 id="caps-h">Capturas del COR-WS</h2>
+    <p class="label">Este panel hace de interfaz: manda el mismo cuerpo y Content-Type por HTTP.</p>
+    <div class="row-actions">
+      <button class="btn primary" id="send-all">Mandar las 13 en orden</button>
+    </div>
+    <ul class="caps" id="caps"></ul>
+  </section>
+  <div class="right">
+  <div class="pipeline">
+    <div class="pipe-scroll">
+    <svg id="svg" viewBox="0 0 1000 300" role="img" aria-labelledby="svg-t">
+      <title id="svg-t">Recorrido del dato: interfaz, POST, lector, central y tres observadores</title>
+      <g id="pipes"></g>
+      <g id="nodes"></g>
+      <g id="tokens"></g>
+    </svg>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--gas)"></i>despacho en camino</span>
+      <span><i style="background:var(--stop)"></i>repetido o falla</span>
+      <span><i style="background:var(--idle)"></i>notificación o rama dada de baja</span>
+      <span>Hacé clic en un observador para darlo de baja o de alta.</span>
+    </div>
+  </div>
+
+  <div class="transit">
+    <div class="raw">
+      <p class="label">Último cuerpo recibido en POST /method (texto tal cual lo manda el equipo)</p>
+      <code id="raw">Todavía no llegó ningún POST. Mandá una captura desde la lista.</code>
+    </div>
+    <div class="obj">
+      <p class="label">Lo que queda después de leerlo: <span id="obj-kind">—</span></p>
+      <dl id="obj"></dl>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <section class="box" aria-labelledby="log-h">
+      <h2 id="log-h">Registro de despachos</h2>
+      <p class="label">Observador <code>DispatchLog</code>. <span id="log-off" class="off-note" hidden>Dado de baja: no recibe despachos.</span></p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Report</th><th>Surtidor</th><th>Hora del equipo</th><th class="num">m³</th><th class="num">Importe</th></tr></thead>
+          <tbody id="log"></tbody>
+        </table>
+      </div>
+      <p class="empty" id="log-empty">Sin despachos registrados.</p>
+    </section>
+
+    <section class="box" aria-labelledby="tot-h">
+      <h2 id="tot-h">m³ por surtidor</h2>
+      <p class="label">Observador <code>PumpTotals</code>. <span id="tot-off" class="off-note" hidden>Dado de baja: no suma.</span></p>
+      <div class="pumps" id="pumps"></div>
+      <div class="total"><span>Total acumulado</span><span id="tot">0,00 m³</span></div>
+      <p class="gap" id="gap" hidden></p>
+    </section>
+  </div>
+
+  <section class="box trace" aria-labelledby="trace-h">
+    <h2 id="trace-h">Traza</h2>
+    <p class="label">Las mismas líneas que imprime la consola del servidor, en orden.</p>
+    <ol id="trace"></ol>
+  </section>
+  </div>
+  </div>
+  <footer class="rights">© 2026 Luciano J. Albanes. Uso académico. Prohibida su copia o redistribución sin autorización del autor.</footer>
+</main>
+
+<script>
+const NS = "http://www.w3.org/2000/svg";
+const fmt = (n, d = 2) => Number(n).toLocaleString("es-AR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = id => document.getElementById(id);
+
+// Geometría del caño (coordenadas del viewBox 1000x300)
+const Y = 150;
+const STAGES = {
+  source:  { x: 85,  y: Y, title: "COR-WS 0001", cls: "surtidores 1 a 6", role: "interfaz" },
+  HTTP:    { x: 265, y: Y, title: "POST /method", cls: "WebServer", role: "transporte" },
+  LECTOR:  { x: 445, y: Y, title: "Lector", cls: "CoritecMessage.parse", role: "texto a objeto" },
+  CENTRAL: { x: 625, y: Y, title: "Central", cls: "DispatchCenter", role: "Subject", subject: true },
+};
+const MANIFOLD = 750;
+const OUTLETS = {
+  registro:   { x: 895, y: 52,  title: "Registro", cls: "DispatchLog" },
+  acumulador: { x: 895, y: 150, title: "Acumulador m³", cls: "PumpTotals" },
+  falla:      { x: 895, y: 248, title: "Con falla (prueba)", cls: "FaultyObserver" },
+};
+const W = 150, H = 70;
+
+let observers = [];          // [{id,name,subscribed}]
+let captures = [];
+let lastSeq = 0;
+let sent = new Set();
+let lastLogIds = new Set();
+const queue = [];
+let playing = false;
+
+function el(tag, attrs = {}, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+
+function drawPipes() {
+  const g = $("pipes"); g.replaceChildren();
+  const main = `M${STAGES.source.x} ${Y} H${MANIFOLD}`;
+  el("path", { d: main, class: "pipe-edge" }, g);
+  el("path", { d: main, class: "pipe" }, g);
+  for (const [id, o] of Object.entries(OUTLETS)) {
+    const on = observers.find(x => x.id === id)?.subscribed;
+    const d = `M${MANIFOLD} ${Y} V${o.y} H${o.x - W / 2}`;
+    el("path", { d, class: "pipe-edge" + (on ? "" : " closed") }, g);
+    el("path", { d, class: "pipe" + (on ? "" : " closed"), id: "branch-" + id }, g);
+  }
+}
+
+function drawNode(parent, s, extra = "") {
+  const g = el("g", { class: "node " + extra + (s.subject ? " subject" : ""), transform: `translate(${s.x - W / 2} ${s.y - H / 2})` }, parent);
+  el("rect", { width: W, height: H, rx: 6 }, g);
+  const t = el("text", { x: 12, y: 25, class: "t" }, g); t.textContent = s.title;
+  const c = el("text", { x: 12, y: 44, class: "c" }, g); c.textContent = s.cls;
+  if (s.role) { const r = el("text", { x: 12, y: 61, class: "r" }, g); r.textContent = s.role; }
+  return g;
+}
+
+function drawNodes() {
+  const g = $("nodes"); g.replaceChildren();
+  for (const [k, s] of Object.entries(STAGES)) drawNode(g, s).id = "node-" + k;
+  for (const [id, o] of Object.entries(OUTLETS)) {
+    const obs = observers.find(x => x.id === id);
+    const on = obs?.subscribed;
+    const n = drawNode(g, { ...o, role: null }, "outlet" + (on ? "" : " off"));
+    n.id = "out-" + id;
+    n.setAttribute("tabindex", "0");
+    n.setAttribute("role", "button");
+    n.setAttribute("aria-pressed", on ? "true" : "false");
+    n.setAttribute("aria-label", `${obs?.name || o.title}: ${on ? "suscripto, activar para dar de baja" : "dado de baja, activar para dar de alta"}`);
+    const st = el("text", { x: 12, y: 61, class: "state", fill: on ? "var(--ok)" : "var(--idle)" }, n);
+    st.textContent = on ? "Observer · suscripto" : "dado de baja";
+    const toggle = () => fetch("/api/observer?id=" + id, { method: "POST" }).then(poll);
+    n.addEventListener("click", toggle);
+    n.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+  }
+}
+
+// --- Animación de un despacho por el caño ---
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function moveToken(tok, pts, ms) {
+  if (reduced) { const p = pts[pts.length - 1]; tok.setAttribute("transform", `translate(${p[0]} ${p[1]})`); return Promise.resolve(); }
+  // largo total para repartir el tiempo por tramo
+  const segs = []; let total = 0;
+  for (let i = 1; i < pts.length; i++) { const l = Math.hypot(pts[i][0] - pts[i-1][0], pts[i][1] - pts[i-1][1]); segs.push(l); total += l; }
+  return new Promise(res => {
+    const t0 = performance.now();
+    function frame(now) {
+      let d = Math.min(1, (now - t0) / ms) * total, i = 0;
+      while (i < segs.length - 1 && d > segs[i]) { d -= segs[i]; i++; }
+      const f = segs[i] ? Math.min(1, d / segs[i]) : 1;
+      const x = pts[i][0] + (pts[i+1][0] - pts[i][0]) * f, y = pts[i][1] + (pts[i+1][1] - pts[i][1]) * f;
+      tok.setAttribute("transform", `translate(${x} ${y})`);
+      if ((now - t0) < ms) requestAnimationFrame(frame); else res();
+    }
+    requestAnimationFrame(frame);
+  });
+}
+
+function makeToken(label, color) {
+  const g = el("g", { class: "token" }, $("tokens"));
+  const c = el("circle", { r: 15 }, g);
+  if (color) c.style.fill = color;
+  const t = el("text", { y: -22, "text-anchor": "middle" }, g); t.textContent = label;
+  return g;
+}
+
+function stamp(x, y, text, color) {
+  const t = el("text", { x, y, "text-anchor": "middle", class: "stamp", fill: color }, $("tokens"));
+  t.textContent = text;
+  setTimeout(() => t.remove(), reduced ? 2500 : 1800);
+}
+
+function flash(id, cls) {
+  const n = $(id); if (!n) return;
+  n.classList.add(cls); setTimeout(() => n.classList.remove(cls), 900);
+}
+
+async function play(j) {
+  const pts = [[STAGES.source.x, Y], [STAGES.HTTP.x, Y], [STAGES.LECTOR.x, Y]];
+  const tok = makeToken(j.ref || "?");
+  tok.setAttribute("transform", `translate(${STAGES.source.x} ${Y})`);
+  await moveToken(tok, pts, 700);
+  if (j.end === "notif" || j.end === "invalid") {
+    tok.querySelector("circle").style.fill = "var(--idle)";
+    stamp(STAGES.LECTOR.x, Y + 58, j.end === "notif" ? "notificación: no sigue" : "no reconocido", "var(--idle)");
+    await sleep(700); tok.remove(); return;
+  }
+  await moveToken(tok, [[STAGES.LECTOR.x, Y], [STAGES.CENTRAL.x, Y]], 450);
+  if (j.end === "duplicate") {
+    tok.querySelector("circle").style.fill = "var(--stop)";
+    stamp(STAGES.CENTRAL.x, Y + 58, "repetido: no se notifica", "var(--stop)");
+    await sleep(800); tok.remove(); return;
+  }
+  // se reparte: una copia por cada observador que recibió el despacho
+  tok.remove();
+  await Promise.all(Object.entries(j.outlets).map(async ([id, res]) => {
+    const o = OUTLETS[id];
+    const t = makeToken(j.ref);
+    await moveToken(t, [[STAGES.CENTRAL.x, Y], [MANIFOLD, Y], [MANIFOLD, o.y], [o.x - W / 2 - 28, o.y]], 650);
+    if (res === "error") { t.querySelector("circle").style.fill = "var(--stop)"; flash("out-" + id, "flash-err"); stamp(o.x - W / 2 - 28, o.y + 40, "falló", "var(--stop)"); }
+    else flash("out-" + id, "flash-ok");
+    await sleep(250); t.remove();
+  }));
+}
+
+async function runQueue() {
+  if (playing) return; playing = true;
+  while (queue.length) await play(queue.shift());
+  playing = false;
+}
+
+// Arma "viajes" a partir de las líneas nuevas de la traza
+let current = null;
+function readTrace(steps) {
+  const byName = Object.fromEntries(observers.map(o => [o.name, o.id]));
+  for (const s of steps) {
+    if (s.stage === "HTTP") { current = { ref: "", end: "observers", outlets: {} }; queue.push(current); continue; }
+    if (!current) continue;
+    if (s.stage === "LECTOR") {
+      current.ref = s.ref;
+      if (s.result === "ignored") current.end = "notif";
+      if (s.result === "error") current.end = "invalid";
+    } else if (s.stage === "CENTRAL" && s.result === "duplicate") current.end = "duplicate";
+    else if (s.stage === "OBSERVER") {
+      const name = Object.keys(byName).find(n => s.text.startsWith(n));
+      if (name) current.outlets[byName[name]] = s.result;
+    }
+  }
+  runQueue();
+}
+
+function addTrace(steps) {
+  const ol = $("trace");
+  for (const s of steps) {
+    const li = document.createElement("li");
+    li.className = `r-${s.result} st-${s.stage}`;
+    li.innerHTML = `<span class="h"></span><span class="s"></span><span class="r"></span><span class="x"></span>`;
+    li.children[0].textContent = s.hour; li.children[1].textContent = s.stage;
+    li.children[2].textContent = s.ref; li.children[3].textContent = s.text;
+    ol.appendChild(li);
+  }
+  if (steps.length) ol.scrollTop = ol.scrollHeight;
+}
+
+function showBody(body) {
+  if (!body) return;
+  const code = $("raw");
+  // resalta las claves para que se lea el JSON dentro del texto
+  code.innerHTML = body.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]))
+    .replace(/"(\w+)":/g, '"<span class="k">$1</span>":').replace(/,/g, ",<wbr>");
+  const pairs = Object.fromEntries([...body.matchAll(/"(\w+)":"([^"]*)"/g)].map(m => [m[1], m[2]]));
+  const dl = $("obj"); dl.replaceChildren();
+  let rows;
+  if (pairs.method === "report_fill") {
+    $("obj-kind").textContent = "un objeto Dispatch, con los valores como los guarda Java";
+    rows = [["reportId", pairs.report_id], ["pump", pairs.node], ["time", pairs.time], ["volume", pairs.volume],
+            ["sale", pairs.sale], ["unitPrice", pairs.unit_price], ["totalizer", pairs.totalizer], ["key()", pairs.sn + "/" + pairs.report_id]];
+  } else {
+    $("obj-kind").textContent = "nada: es una notificación y no llega a la central";
+    rows = [["method", pairs.method], ["event", pairs.event], ["node", pairs.node], ["time", pairs.time]];
+  }
+  for (const [k, v] of rows) {
+    const dt = document.createElement("dt"); dt.textContent = k;
+    const dd = document.createElement("dd"); dd.textContent = v ?? "";
+    dl.append(dt, dd);
+  }
+}
+
+function render(st) {
+  const prev = JSON.stringify(observers);
+  observers = st.observers;
+  if (prev !== JSON.stringify(observers)) { drawPipes(); drawNodes(); }
+
+  $("c-new").textContent = st.counters.NEW;
+  $("c-dup").textContent = st.counters.DUPLICATE;
+  $("c-notif").textContent = st.counters.NOTIFICATION;
+
+  const on = id => observers.find(o => o.id === id)?.subscribed;
+  $("log-off").hidden = on("registro");
+  $("tot-off").hidden = on("acumulador");
+
+  // registro
+  const tb = $("log"); tb.replaceChildren();
+  const ids = new Set();
+  for (const d of st.log) {
+    ids.add(d.reportId);
+    const tr = document.createElement("tr");
+    if (!lastLogIds.has(d.reportId)) tr.className = "fresh";
+    for (const [v, num] of [[d.reportId], [d.pump], [d.time], [fmt(d.volume), 1], ["$ " + fmt(d.sale), 1]]) {
+      const td = document.createElement("td"); td.textContent = v; if (num) td.className = "num"; tr.appendChild(td);
+    }
+    tb.appendChild(tr);
+  }
+  requestAnimationFrame(() => tb.querySelectorAll(".fresh").forEach(r => setTimeout(() => r.classList.remove("fresh"), 50)));
+  lastLogIds = ids;
+  $("log-empty").hidden = st.log.length > 0;
+
+  // acumulador: los seis surtidores, aunque alguno no tenga despachos
+  const max = Math.max(1, ...Object.values(st.totals).map(Number));
+  const box = $("pumps"); box.replaceChildren();
+  let sum = 0;
+  for (let p = 1; p <= 6; p++) {
+    const v = Number(st.totals[p] || 0); sum += v;
+    const row = document.createElement("div"); row.className = "pump";
+    row.innerHTML = `<span>Surtidor ${p}</span><span class="bar"><i style="width:${(v / max) * 100}%"></i></span><span class="v">${fmt(v)}</span>`;
+    box.appendChild(row);
+  }
+  $("tot").textContent = fmt(sum) + " m³";
+  const logSum = st.log.reduce((a, d) => a + Number(d.volume), 0);
+  const diff = logSum - sum;
+  $("gap").hidden = Math.abs(diff) < 0.005;
+  $("gap").innerHTML = `El registro suma ${fmt(logSum)} m³: faltan <b>${fmt(diff)} m³</b> de despachos que llegaron con el acumulador dado de baja.`;
+
+  showBody(st.lastBody);
+  addTrace(st.trace);
+  if (st.trace.length) { if (!firstPoll) readTrace(st.trace); lastSeq = st.trace[st.trace.length - 1].seq; }
+}
+
+let firstPoll = true; // al abrir la página no se reproduce lo que ya pasó
+async function poll() {
+  try {
+    const r = await fetch("/api/state?since=" + lastSeq);
+    render(await r.json());
+    firstPoll = false;
+  } catch (e) { console.error("poll", e); /* se reintenta en el próximo ciclo */ }
+}
+
+function renderCaptures() {
+  const ul = $("caps"); ul.replaceChildren();
+  for (const c of captures) {
+    const li = document.createElement("li");
+    if (sent.has(c.n)) li.className = "sent";
+    const what = c.method === "report_fill"
+      ? `Despacho ${c.reportId}<small>surtidor ${c.pump}, ${fmt(c.volume)} m³</small>`
+      : `Notificación ${c.reportId}<small>${c.event}</small>`;
+    li.innerHTML = `<span class="n">${c.n}</span><span class="what">${what}</span>`;
+    const b = document.createElement("button");
+    b.textContent = sent.has(c.n) ? "Reenviar" : "Mandar";
+    b.dataset.n = c.n;
+    b.setAttribute("aria-label", `${b.textContent} captura ${c.n}`);
+    b.addEventListener("click", () => sendCapture(c));
+    li.appendChild(b);
+    ul.appendChild(li);
+  }
+}
+
+async function sendCapture(c) {
+  await fetch("/method", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: c.body });
+  sent.add(c.n); renderCaptures(); poll();
+}
+
+$("send-all").addEventListener("click", async () => {
+  for (const c of captures) { await sendCapture(c); await sleep(reduced ? 150 : 2300); }
+});
+$("reset").addEventListener("click", async () => {
+  await fetch("/api/reset", { method: "POST" });
+  sent = new Set(); renderCaptures();
+  $("trace").replaceChildren(); $("raw").textContent = "Todavía no llegó ningún POST. Mandá una captura desde la lista.";
+  $("obj").replaceChildren(); $("obj-kind").textContent = "—";
+  queue.length = 0; poll();
+});
+
+(async () => {
+  captures = await (await fetch("/api/captures")).json();
+  renderCaptures();
+  await poll();
+  setInterval(poll, 500);
+})();
+</script>
+</body>
+</html>

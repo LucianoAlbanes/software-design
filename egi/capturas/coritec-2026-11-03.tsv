@@ -1,0 +1,16 @@
+# 13 POST reales de una interfaz COR-WS (3/11/2026). Número de serie anonimizado.
+# Fuente: Luciano J. Albanes, relevamiento propio. Uso académico, prohibida su redistribución sin autorización.
+# Formato: numero<TAB>cuerpo exacto (Content-Type: application/x-www-form-urlencoded)
+1	datos={"sn":"0001","method":"report_fill","report_id":"5784","fill_data":{"node":"4","time":"2026-11-02 23:41:14","unit_price":"965.000","sale":"7344.00","volume":"7.61","totalizer":"67403.57","ibutton_id":""}}
+2	datos={"sn":"0001","method":"report_fill","report_id":"5785","fill_data":{"node":"1","time":"2026-11-02 23:57:55","unit_price":"965.000","sale":"7913.00","volume":"8.20","totalizer":"43828.73","ibutton_id":""}}
+3	datos={"sn":"0001","method":"report_fill","report_id":"5777","fill_data":{"node":"3","time":"2026-11-02 23:01:50","unit_price":"965.000","sale":"8781.00","volume":"9.10","totalizer":"83415.77","ibutton_id":""}}
+4	datos={"sn":"0001","method":"report_fill","report_id":"5778","fill_data":{"node":"2","time":"2026-11-02 23:11:24","unit_price":"965.000","sale":"9148.00","volume":"9.48","totalizer":"58228.85","ibutton_id":""}}
+5	datos={"sn":"0001","method":"report_fill","report_id":"5779","fill_data":{"node":"1","time":"2026-11-02 23:12:58","unit_price":"965.000","sale":"5000.00","volume":"5.18","totalizer":"43812.63","ibutton_id":""}}
+6	datos={"sn":"0001","method":"report_notif","report_id":"404","notif_data":{"node":"15","time":"2026-11-02 23:47:47","event":"keep_alive","data":"0000"}}
+7	datos={"sn":"0001","method":"report_notif","report_id":"405","notif_data":{"node":"15","time":"2026-11-03 00:02:19","event":"config_changed","data":""}}
+8	datos={"sn":"0001","method":"report_fill","report_id":"5780","fill_data":{"node":"3","time":"2026-11-02 23:17:03","unit_price":"965.000","sale":"5000.00","volume":"5.18","totalizer":"83420.95","ibutton_id":""}}
+9	datos={"sn":"0001","method":"report_fill","report_id":"5781","fill_data":{"node":"2","time":"2026-11-02 23:19:00","unit_price":"965.000","sale":"10000.00","volume":"10.36","totalizer":"58239.21","ibutton_id":""}}
+10	datos={"sn":"0001","method":"report_fill","report_id":"5782","fill_data":{"node":"5","time":"2026-11-02 23:30:12","unit_price":"965.000","sale":"15228.00","volume":"15.78","totalizer":"62650.09","ibutton_id":""}}
+11	datos={"sn":"0001","method":"report_fill","report_id":"5783","fill_data":{"node":"1","time":"2026-11-02 23:31:29","unit_price":"965.000","sale":"7623.00","volume":"7.90","totalizer":"43820.53","ibutton_id":""}}
+12	datos={"sn":"0001","method":"report_fill","report_id":"5786","fill_data":{"node":"3","time":"2026-11-03 00:15:33","unit_price":"965.000","sale":"10000.00","volume":"10.36","totalizer":"83431.30","ibutton_id":""}}
+13	datos={"sn":"0001","method":"report_fill","report_id":"5787","fill_data":{"node":"5","time":"2026-11-03 00:25:26","unit_price":"965.000","sale":"8521.00","volume":"8.83","totalizer":"62658.92","ibutton_id":""}}
